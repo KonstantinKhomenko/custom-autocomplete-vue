@@ -7,7 +7,10 @@
         @click="onSelect(index)"
         class="list-item"
         :class="{ selected: selectedIndex === index }"
-      >{{ item }}</li>
+        @mouseover="changeSelectedIndex(index)"
+      >
+        {{ item }}
+      </li>
     </ul>
   </div>
 </template>
@@ -38,8 +41,10 @@ export default {
       this.changeSelectedIndex(index);
       this.changeSelectedItem(this.matches[index]);
     },
-    scrollToItem() {
-      this.$refs.list.scrollTop = this.selectedIndex * this.itemHeight;
+    scrollToItem(newIndex, oldIndex) {
+      if (Math.abs(newIndex - oldIndex) === 1) {
+        this.$refs.list.scrollTop = this.selectedIndex * this.itemHeight;
+      }
     }
   }
 };
